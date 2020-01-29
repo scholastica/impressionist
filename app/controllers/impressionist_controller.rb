@@ -138,7 +138,11 @@ module ImpressionistController
       # str = request.session_options[:id]
       # logger.debug "Encoding: #{str.encoding.inspect}"
       # # request.session_options[:id].encode("ISO-8859-1")
-      request.session_options[:id]
+      if Rails::VERSION::MAJOR >= 5
+        request.session_options.to_hash[:id]
+      else
+        request.session_options[:id]
+      end
     end
 
     def params_hash
